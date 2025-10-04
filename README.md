@@ -11,7 +11,7 @@
 **Music Practice Room Booking System** คือเว็บแอปพลิเคชันที่พัฒนาขึ้นเพื่อจัดการการจองห้องซ้อมดนตรี  
 ช่วยให้นักศึกษา อาจารย์ และผู้ดูแลสามารถ **จองห้อง ตรวจสอบตารางเวลา และป้องกันการจองซ้ำ** ได้อย่างมีประสิทธิภาพ  
 
-ระบบนี้สามารถปรับใช้ได้กับ:
+ระบบนี้สามารถนำไปใช้ได้กับ:
 - 🎶 โรงเรียนสอนดนตรี / มหาวิทยาลัย  
 - 🏫 สถาบันการศึกษา  
 - 🎤 สตูดิโอซ้อมดนตรีส่วนตัว  
@@ -19,92 +19,148 @@
 ---
 
 ## 🚀 ฟีเจอร์หลัก (Features)
-- ✅ **ระบบล็อกอิน / สมัครสมาชิก** (นักศึกษา / อาจารย์ / แอดมิน)  
+- ✅ **ระบบล็อกอิน / สมัครสมาชิก** (นักศึกษาหรือลูกค้า / อาจารย์หรือเจ้าของร้าน / แอดมิน)  
 - ✅ **ตรวจสอบห้องว่างแบบเรียลไทม์** – ป้องกันการจองซ้ำ  
 - ✅ **จัดการการจอง** – จอง, ยกเลิก, แก้ไข  
-- ✅ **แดชบอร์ดสำหรับผู้ดูแลระบบ (Admin Dashboard)** – จัดการผู้ใช้และตารางเวลา  
-- ✅ **ประวัติการจองและการแจ้งเตือน**  
+- ✅ **แดชบอร์ดผู้ดูแลระบบ (Admin Dashboard)** – จัดการผู้ใช้และตาราง  
+- ✅ **ประวัติการจองและสถิติการใช้งานห้องซ้อมดนตรี**
+
+---
+
+## 🎨 การออกแบบ UI
+- โทนสีหลัก: **ฟ้า (Turquoise)** + **เขียวอ่อน (Light Green)**  
+- พื้นหลัง: สีเขียวอ่อน-ขาว ดูสะอาด สดใส  
+- ปุ่ม: สีฟ้าเทอร์ควอยซ์ โค้งมน  
+- ฟอนต์: เรียบ อ่านง่าย เหมาะกับทุกอุปกรณ์  
+- Layout ถูกออกแบบให้ **ใช้งานง่ายและ Responsive** บนทุกหน้าจอ
 
 ---
 
 ## 🛠️ เทคโนโลยีที่ใช้ (Tech Stack)
-- **Frontend (ส่วนติดต่อผู้ใช้):** HTML, CSS, JavaScript  
-- **Backend (ฝั่งเซิร์ฟเวอร์):** Node.js (Express.js)  
-- **ฐานข้อมูล:** MongoDB  
-- **การยืนยันตัวตน (Authentication):** JWT (JSON Web Token)  
-- **การปรับใช้งาน (Deployment):** Localhost  
+
+| ส่วน | เทคโนโลยี |
+|------|-------------|
+| **Frontend (UI)** | HTML, CSS, JavaScript |
+| **Backend (API)** | Node.js (Express.js) |
+| **Database** | MongoDB (ผ่าน MongoDB Atlas) |
+| **Authentication** | JWT (JSON Web Token) |
+| **Deployment** | Localhost / สามารถปรับใช้บน Render, Vercel, หรือ Railway |
 
 ---
 
 ## 📂 โครงสร้างโปรเจกต์ (Project Structure)
 Music-practice-room-booking-system/
-│── src/
-│ ├── controllers/ # ส่วนควบคุมการทำงาน
-│ ├── models/ # โครงสร้างฐานข้อมูล
-│ ├── routes/ # เส้นทาง API
-│ ├── views/ # หน้าเว็บ (EJS / HTML)
-│ └── app.js # ไฟล์หลักของเซิร์ฟเวอร์
-│── public/ # ไฟล์ Static (CSS, JS, รูปภาพ)
-│── config/ # ไฟล์การตั้งค่าฐานข้อมูลและระบบ
-│── package.json
-│── README.md
+│
+├── backend/
+│ ├── server.js # ไฟล์เริ่มต้นของเซิร์ฟเวอร์
+│ ├── config/
+│ │ └── db.js # การเชื่อมต่อ MongoDB
+│ ├── models/
+│ │ └── Booking.js # โครงสร้างข้อมูลการจอง
+│ ├── routes/
+│ │ └── bookingRoutes.js # เส้นทาง API (Bookings)
+│ └── package.json
+│
+├── frontend/
+│ ├── index.html # หน้าเว็บหลัก
+│ ├── style.css # การตกแต่ง UI
+│ └── script.js # Logic ของฝั่งผู้ใช้ (เชื่อมต่อ API)
+│
+└── README.md
 
 ---
 
 ## ⚡ วิธีติดตั้งและใช้งาน (Installation & Setup)
 
-1. **โคลนโปรเจกต์จาก GitHub**
+ **1️⃣ โคลนโปรเจกต์จาก GitHub**
+   
    ```bash
    git clone https://github.com/Kittinan-Dev/Music-practice-room-booking-system.git
    cd Music-practice-room-booking-system
+   ```
 
-2. **ติดตั้ง Dependencies**
+ **2️⃣ ติดตั้ง Dependencies (ฝั่ง Backend)**
    ```bash
+   cd backend
    npm install
+   ```
 
-3. **สร้างไฟล์ .env และตั้งค่าคอนฟิก**
-   ##PORT=3000
-   DB_URI=mongodb://localhost:27017/music_booking
-   SESSION_SECRET=your-secret-key
+ **3️⃣ ตั้งค่าการเชื่อมต่อฐานข้อมูล**
+ 
+ สร้างไฟล์ .env หรือแก้ไข config/db.js
+ ตัวอย่าง .env:
 
-4. **รันเซิร์ฟเวอร์**
-   ```bash
-   npm start
+ ```ini
+ PORT=5000
+ MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/music_room_booking?retryWrites=true&w=majority
+ JWT_SECRET=your-secret-key
+ ```
+ 
+ **💡 หากรหัสผ่านมีอักขระพิเศษ เช่น @ หรือ ! ให้ใช้การเข้ารหัส URL (%40, %21)**
 
-5. **เปิดเบราว์เซอร์ไปที่: http://localhost:3000**
+ **4️⃣ รัน Backend Server**
+ ```bash
+ npm start
+ ```
+ จะเห็นข้อความ:✅ MongoDB Connected
+ 🚀 Server running on port 5000
 
----
+ **5️⃣ เปิด Frontend**
+ เปิดโฟลเดอร์ frontend/index.html ด้วย Live Server
+ หรือเปิดด้วยเบราว์เซอร์โดยตรง:http://127.0.0.1:5500/frontend/index.html
+ 
+ ## 📡 API Endpoints
 
-## 📖ตัวอย่าง API Endpoints
+ Method	Endpoint	Description
+ GET	/api/bookings	ดึงข้อมูลการจองทั้งหมด
+ GET	/api/bookings/check?date=YYYY-MM-DD	ตรวจสอบห้องที่ถูกจองในวันนั้น
+ POST	/api/bookings	เพิ่มการจองใหม่
+ DELETE	/api/bookings/:id	ยกเลิกการจอง
 
-GET /rooms → ดึงข้อมูลห้องที่ว่าง
+ ## ตัวอย่าง JSON (POST /api/bookings):
+ ```json
+ {
+  "name": "Kittinan Siriya",
+  "phone": "0999999999",
+  "room": "ห้องซ้อมดนตรี",
+  "date": "2025-10-05",
+  "startTime": "14:00",
+  "endTime": "16:00"
+}
+ ```
 
-POST /book → สร้างการจอง
+## 🧠 ฟังก์ชันการทำงานของระบบ
 
-DELETE /cancel/:id → ยกเลิกการจอง
-
-GET /history/:userId → ดูประวัติการจองของผู้ใช้
-
----
-
-## 🤝 การมีส่วนร่วม (Contributing)
+ฟังก์ชัน	รายละเอียด
+🏠 หน้าแรก	แสดงหัวข้อ “ระบบจองห้องซ้อมดนตรี” และปฏิทินเลือกวัน
+📅 เลือกวัน/เวลา	กำหนดช่วงเวลาซ้อม และตรวจสอบสถานะห้อง
+🏢 ห้องซ้อมดนตรี	แสดงสถานะ “✅ ว่าง” หรือ “❌ จองแล้ว”
+📝 จองห้อง	กรอกข้อมูล (ชื่อ, เบอร์โทร, เวลา) แล้วบันทึกลง MongoDB
+📋 รายการของฉัน	แสดงรายการจอง พร้อมปุ่ม “ยกเลิก”
+📊 สถิติการใช้งาน	(อยู่ระหว่างพัฒนา) แสดงจำนวนการจองและช่วงเวลายอดนิยม
+🤝 การมีส่วนร่วม (Contributing)
 
 สามารถส่ง Pull Request ได้ตลอด!
 หากต้องการแก้ไขใหญ่ แนะนำให้เปิด Issue เพื่อพูดคุยก่อน
 
-**ขั้นตอนการมีส่วนร่วม:**
+**ขั้นตอนการร่วมพัฒนา**
+```bash
+# 1. Fork โปรเจกต์
+# 2. สร้าง Branch ใหม่
+git checkout -b feature/new-feature
+# 3. Commit การเปลี่ยนแปลง
+git commit -m "เพิ่มฟีเจอร์ใหม่"
+# 4. Push ไปที่ Branch ของคุณ
+git push origin feature/new-feature
+# 5. เปิด Pull Request
+```
 
-Fork โปรเจกต์นี้
+**👨‍💻 ผู้พัฒนา (Developer)**
 
-สร้าง Branch ใหม่ (git checkout -b feature/new-feature)
+Kittinan Siriya
+📧 Email: kittinan.work05@gmail.com
+🌐 GitHub: Kittinan-Dev
 
-Commit การเปลี่ยนแปลง (git commit -m 'เพิ่มฟีเจอร์ใหม่')
-
-Push ไปยัง Branch (git push origin feature/new-feature)
-
-เปิด Pull Request
-
-## 📜 ลิขสิทธิ์ (License)
+📜 License
 
 โปรเจกต์นี้เผยแพร่ภายใต้ MIT License
-รายละเอียดเพิ่มเติมดูได้ที่ LICENSE

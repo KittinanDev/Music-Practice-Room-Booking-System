@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ระบบจองห้องซ้อมดนตรี</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🎵 ระบบจองห้องซ้อมดนตรี</h1>
+
+  <section>
+    <label>เลือกวันที่:</label>
+    <input type="date" id="datePicker">
+  </section>
+
+  <section>
+    <label>เวลาเริ่มต้น:</label>
+    <input type="time" id="startTime">
+    <label>เวลาสิ้นสุด:</label>
+    <input type="time" id="endTime">
+  </section>
+
+  <section>
+    <h2>ห้องซ้อมดนตรี (จุได้ 10 คน)</h2>
+    <div id="roomStatus">✅ ว่าง</div>
+    <button id="bookBtn">จองห้อง</button>
+  </section>
+
+  <section id="formSection" class="hidden">
+    <h3>กรอกข้อมูลการจอง</h3>
+    <input type="text" id="name" placeholder="ชื่อผู้จอง">
+    <input type="tel" id="phone" placeholder="เบอร์โทรศัพท์">
+    <button id="confirmBtn">ยืนยันการจอง</button>
+  </section>
+
+  <section id="myBookings">
+    <h2>📋 รายการจองของฉัน</h2>
+    <ul id="bookingList"></ul>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
