@@ -49,6 +49,7 @@
 ---
 
 ## 📂 โครงสร้างโปรเจกต์ (Project Structure)
+```bash
 Music-practice-room-booking-system/
 │
 ├── backend/
@@ -67,7 +68,7 @@ Music-practice-room-booking-system/
 │ └── script.js # Logic ของฝั่งผู้ใช้ (เชื่อมต่อ API)
 │
 └── README.md
-
+```
 ---
 
 ## ⚡ วิธีติดตั้งและใช้งาน (Installation & Setup)
@@ -111,11 +112,12 @@ Music-practice-room-booking-system/
  
  ## 📡 API Endpoints
 
- Method	Endpoint	Description
- GET	/api/bookings	ดึงข้อมูลการจองทั้งหมด
- GET	/api/bookings/check?date=YYYY-MM-DD	ตรวจสอบห้องที่ถูกจองในวันนั้น
- POST	/api/bookings	เพิ่มการจองใหม่
- DELETE	/api/bookings/:id	ยกเลิกการจอง
+ | Method |	Endpoint | Description |
+ |--------|----------|-------------|
+ **GET** | **/api/bookings**	| **ดึงข้อมูลการจองทั้งหมด**|
+ **GET**	|**/api/bookings/check?date=YYYY-MM-DD**	|**ตรวจสอบห้องที่ถูกจองในวันนั้น**|
+ **POST**	|**/api/bookings**|**เพิ่มการจองใหม่**|
+ **DELETE**	|**/api/bookings/:id**	|**ยกเลิกการจอง**|
 
  ## ตัวอย่าง JSON (POST /api/bookings):
  ```json
