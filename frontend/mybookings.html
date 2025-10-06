@@ -2,17 +2,95 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>การจองของฉัน</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/booking.js"></script>
 </head>
-<body>
-  <h2>📋 การจองของฉัน</h2>
-  <div id="my-bookings">⏳ กำลังโหลด...</div>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-6">
+      <div class="flex items-center justify-center mb-2">
+        <span class="text-5xl mr-3">📋</span>
+        <h2 class="text-3xl font-bold text-gray-800">การจองของฉัน</h2>
+      </div>
+      <p class="text-center text-gray-600">รายการห้องซ้อมดนตรีที่คุณจองไว้</p>
+    </div>
 
-  <hr>
-  <p><a href="index.html">กลับไปหน้าจอง</a></p>
-  <p><button onclick="logout()">ออกจากระบบ</button></p>
+    <!-- Bookings List -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 min-h-64">
+      <div id="my-bookings">
+        <div class="flex flex-col items-center justify-center py-12">
+          <svg class="animate-spin h-12 w-12 text-purple-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span class="text-lg text-gray-600">⏳ กำลังโหลด...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="bg-white rounded-2xl shadow-lg p-6">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a 
+          href="index.html"
+          class="flex-1 text-center bg-purple-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-purple-600 transition duration-200 flex items-center justify-center"
+        >
+          <span class="mr-2">←</span>
+          กลับไปหน้าจอง
+        </a>
+        <button 
+          onclick="logout()"
+          class="flex-1 bg-gray-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-600 transition duration-200 flex items-center justify-center"
+        >
+          <span class="mr-2">🚪</span>
+          ออกจากระบบ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Custom styles for booking cards that will be injected by booking.js */
+    .booking-item {
+      @apply bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-xl p-6 mb-4 hover:shadow-lg transition duration-200;
+    }
+    
+    .booking-item:hover {
+      @apply border-purple-400 shadow-xl transform scale-105;
+    }
+
+    .booking-header {
+      @apply text-lg font-bold text-gray-800 mb-2;
+    }
+
+    .booking-details {
+      @apply text-gray-600 mb-1;
+    }
+
+    .booking-actions {
+      @apply mt-4 flex gap-2;
+    }
+
+    .cancel-btn {
+      @apply bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200 text-sm font-semibold;
+    }
+
+    .empty-state {
+      @apply text-center py-12;
+    }
+
+    .empty-state-icon {
+      @apply text-6xl mb-4;
+    }
+
+    .empty-state-text {
+      @apply text-gray-500 text-lg;
+    }
+  </style>
 </body>
 </html>
