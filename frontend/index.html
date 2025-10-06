@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>🎵 ระบบจองห้องซ้อมดนตรี</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎵 Music Practice Room Booking</h1>
+  <nav>
+    <span id="user-info" style="margin-right: 15px;"></span> <!-- ✅ แสดงชื่อ -->
+    <button onclick="window.location='mybookings.html'">การจองของฉัน</button>
+    <button onclick="logout()">ออกจากระบบ</button>
+  </nav>
+  </header>
+
+  <section id="rooms-section">
+    <h2>เลือกห้องซ้อม</h2>
+    <div id="room-list"></div>
+  </section>
+
+  <section id="availability-section">
+    <h2>ตรวจสอบเวลาว่าง</h2>
+    <form id="availability-form">
+      <input type="date" id="date" required>
+      <input type="time" id="start" required>
+      <input type="time" id="end" required>
+      <select id="room-select"></select>
+      <button type="submit">ตรวจสอบ</button>
+    </form>
+    <p id="availability-result"></p>
+  </section>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/booking.js"></script>
+  <script>
+    showUserBanner();   // ✅ แสดงชื่อผู้ใช้เมื่อโหลดหน้า
+    loadRooms();
+    setupAvailabilityChecker();
+  </script>
+
+</body>
+</html>

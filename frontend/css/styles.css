@@ -1,0 +1,67 @@
+body {
+  font-family: "Prompt", sans-serif;
+  background: #f6f6f6;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #ff4081;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  background: #ff4081;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #e73370;
+}
+
+.auth-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.room-card, .booking-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.admin-actions button {
+  margin-right: 8px;
+  background: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+.admin-actions button:hover {
+  background: #e73370;
+}
+
+#user-info {
+  font-weight: 500;
+  color: #444;
+}
+
+#user-info strong {
+  color: #ff4081;
+}

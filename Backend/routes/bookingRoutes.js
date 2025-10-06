@@ -1,17 +1,23 @@
 const express = require("express");
-const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
-const { adminOnly } = require("../middleware/roleMiddleware");
 const {
   createBooking,
-  getAllBookings,
   getUserBookings,
+  getAllBookings,
   checkAvailability,
 } = require("../controllers/bookingController");
+const { protect } = require("../middlewares/authMiddleware");
+const { adminOnly } = require("../middlewares/roleMiddleware");
+const { updateBookingStatus } = require("../controllers/bookingController");
+const router = express.Router();
 
 router.post("/", protect, createBooking);
 router.get("/my", protect, getUserBookings);
 router.get("/all", protect, adminOnly, getAllBookings);
+router.get("/availability", protect, checkAvailability);
+router.patch("/:id", protect, adminOnly, updateBookingStatus);
+
+module.exports = router;
+
 
 // ✅ เพิ่ม endpoint นี้
 /**

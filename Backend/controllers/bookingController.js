@@ -1,60 +1,55 @@
 const Booking = require("../models/Booking");
-const Room = require("../models/Room");
 const { validateBookingOverlap } = require("../utils/validateBooking");
 
-// ✅ สร้างการจอง
+// ✅ Create booking
 exports.createBooking = async (req, res) => {
-  const { room, date, startTime, endTime } = req.body;
-  const user = req.user._id;
+  try {
+    const { room, date, startTime, endTime } = req.body;
+    const overlap = await validateBookingOverlap(room, date, startTime, endTime);
+    if (overlap) return res.status(400).json({ message: "ช่วงเวลานี้ถูกจองแล้ว" });
 
-  // ตรวจสอบเวลาทับซ้อน
-  const overlap = await validateBookingOverlap(room, date, startTime, endTime);
-  if (overlap)
-    return res.status(400).json({ message: "ช่วงเวลานี้ถูกจองแล้ว" });
+    const booking = await Booking.create({
+      user: req.user._id,
+      room,
+      date,
+      startTime,
+      endTime,
+    });
 
-  const booking = await Booking.create({ user, room, date, startTime, endTime });
-  res.json(booking);
+    res.json(booking);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-// ✅ ดูการจองทั้งหมด (admin)
-exports.getAllBookings = async (req, res) => {
-  const bookings = await Booking.find().populate("user room");
-  res.json(bookings);
-};
-
-// ✅ ดูการจองของผู้ใช้
+// ✅ My Bookings
 exports.getUserBookings = async (req, res) => {
   const bookings = await Booking.find({ user: req.user._id }).populate("room");
   res.json(bookings);
 };
 
-// ✅ ตรวจสอบเวลาว่างของห้อง
+// ✅ All bookings (admin)
+exports.getAllBookings = async (req, res) => {
+  const bookings = await Booking.find().populate("user room");
+  res.json(bookings);
+};
+
+// ✅ Availability Check
 exports.checkAvailability = async (req, res) => {
   try {
     const { roomId, date, start, end } = req.query;
-
-    if (!roomId || !date || !start || !end) {
-      return res.status(400).json({ message: "กรุณาระบุ roomId, date, start, end" });
-    }
-
-    const bookings = await Booking.find({
-      room: roomId,
-      date,
-      $or: [
-        { startTime: { $lt: end }, endTime: { $gt: start } } // ช่วงเวลาทับกัน
-      ],
-    });
-
-    const available = bookings.length === 0;
+    const overlap = await validateBookingOverlap(roomId, date, start, end);
     res.json({
-      roomId,
-      date,
-      start,
-      end,
-      available,
-      message: available ? "ห้องนี้ว่างในช่วงเวลาดังกล่าว" : "ห้องนี้ถูกจองแล้ว",
+      available: !overlap,
+      message: overlap ? "ห้องนี้ถูกจองแล้ว" : "ห้องนี้ว่างในช่วงเวลาดังกล่าว",
     });
   } catch (err) {
-    res.status(500).json({ message: "เกิดข้อผิดพลาดในการตรวจสอบ" });
+    res.status(500).json({ message: err.message });
   }
+};
+
+exports.updateBookingStatus = async (req, res) => {
+  const { status } = req.body;
+  const booking = await Booking.findByIdAndUpdate(req.params.id, { status }, { new: true });
+  res.json(booking);
 };

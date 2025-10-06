@@ -1,16 +1,8 @@
-import express from "express";
-import { verifyToken, isAdmin } from "../middlewares/authMiddleware.js";
-import { getAllUsers, getAllRooms, getAllBookings, deleteUser, deleteBooking } from "../controllers/adminController.js";
-
+const express = require("express");
+const { register, login } = require("../controllers/authController");
 const router = express.Router();
 
-// ดึงข้อมูลทั้งหมด
-router.get("/users", verifyToken, isAdmin, getAllUsers);
-router.get("/rooms", verifyToken, isAdmin, getAllRooms);
-router.get("/bookings", verifyToken, isAdmin, getAllBookings);
+router.post("/register", register);
+router.post("/login", login);
 
-// ลบข้อมูล
-router.delete("/user/:id", verifyToken, isAdmin, deleteUser);
-router.delete("/booking/:id", verifyToken, isAdmin, deleteBooking);
-
-export default router;
+module.exports = router;

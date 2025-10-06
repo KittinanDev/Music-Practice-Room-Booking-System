@@ -11,10 +11,11 @@ exports.register = async (req, res) => {
 
     const user = await User.create({ username, email, password });
     res.json({
-      _id: user.id,
+      _id: user._id,
       username: user.username,
       email: user.email,
-      token: generateToken(user.id),
+      role: user.role,
+      token: generateToken(user._id)
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -24,12 +25,12 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (user && (await user.matchPassword(password))) {
+  if (user && await user.matchPassword(password)) {
     res.json({
-      _id: user.id,
+      _id: user._id,
       username: user.username,
       role: user.role,
-      token: generateToken(user.id),
+      token: generateToken(user._id)
     });
   } else {
     res.status(401).json({ message: "อีเมลหรือรหัสผ่านไม่ถูกต้อง" });
