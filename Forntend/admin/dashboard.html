@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>🎵 Admin Dashboard | Music Practice Room</title>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>🎵 Admin Panel</h2>
+    <ul>
+      <li><a href="dashboard.html" class="active">Dashboard</a></li>
+      <li><a href="users.html">จัดการผู้ใช้</a></li>
+      <li><a href="rooms.html">จัดการห้อง</a></li>
+      <li><a href="bookings.html">การจองทั้งหมด</a></li>
+      <li><a href="../login.html" onclick="logout()">ออกจากระบบ</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <header>
+      <h1>📊 สถิติการใช้งานระบบ</h1>
+      <p id="adminName">ยินดีต้อนรับ, Admin</p>
+    </header>
+
+    <!-- การ์ดสรุป -->
+    <section class="cards">
+      <div class="card">
+        <h3>👤 ผู้ใช้ทั้งหมด</h3>
+        <p id="totalUsers">0</p>
+      </div>
+      <div class="card">
+        <h3>🏠 ห้องทั้งหมด</h3>
+        <p id="totalRooms">0</p>
+      </div>
+      <div class="card">
+        <h3>📅 การจองวันนี้</h3>
+        <p id="todayBookings">0</p>
+      </div>
+    </section>
+
+    <!-- กราฟ -->
+    <section class="charts">
+      <div class="chart-container">
+        <h3>📈 จำนวนการจองรายวัน</h3>
+        <canvas id="chartBookings"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>🏠 การจองต่อห้อง</h3>
+        <canvas id="chartRooms"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/admin-dashboard.js"></script>
+</body>
+</html>

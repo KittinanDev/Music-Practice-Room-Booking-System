@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เพิ่ม/แก้ไขข้อมูล</title>
+</head>
+<body>
+  <h1 id="pageTitle">เพิ่มข้อมูล</h1>
+  <form id="editForm">
+    <input type="text" id="name" placeholder="ชื่อ" required><br>
+    <input type="email" id="email" placeholder="อีเมล" required><br>
+    <select id="role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select><br>
+    <button type="submit">💾 บันทึก</button>
+  </form>
+
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const type = params.get("type");
+    const title = id ? "แก้ไขผู้ใช้" : "เพิ่มผู้ใช้";
+    document.getElementById("pageTitle").textContent = title;
+    handleAddEdit(type, id);
+  </script>
+</body>
+</html>
