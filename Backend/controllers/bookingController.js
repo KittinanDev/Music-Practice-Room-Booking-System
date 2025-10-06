@@ -1,12 +1,18 @@
 const Booking = require("../models/Booking");
 const { validateBookingOverlap } = require("../utils/validateBooking");
 
-// ✅ Create booking
+// ✅ ดึงจาก .env โดยตรง
+const DEFAULT_ROOM_ID = process.env.DEFAULT_ROOM_ID;
+
 exports.createBooking = async (req, res) => {
   try {
-    const { room, date, startTime, endTime } = req.body;
+    const { date, startTime, endTime } = req.body;
+    const room = DEFAULT_ROOM_ID;
+
     const overlap = await validateBookingOverlap(room, date, startTime, endTime);
-    if (overlap) return res.status(400).json({ message: "ช่วงเวลานี้ถูกจองแล้ว" });
+    if (overlap) {
+      return res.status(400).json({ message: "ช่วงเวลานี้ถูกจองแล้ว" });
+    }
 
     const booking = await Booking.create({
       user: req.user._id,
@@ -22,11 +28,16 @@ exports.createBooking = async (req, res) => {
   }
 };
 
+
+
 // ✅ My Bookings
 exports.getUserBookings = async (req, res) => {
-  const bookings = await Booking.find({ user: req.user._id }).populate("room");
+  const bookings = await Booking.find({ user: req.user._id })
+    .populate("room")
+    .sort({ date: -1, startTime: -1 });
   res.json(bookings);
 };
+
 
 // ✅ All bookings (admin)
 exports.getAllBookings = async (req, res) => {
@@ -37,19 +48,32 @@ exports.getAllBookings = async (req, res) => {
 // ✅ Availability Check
 exports.checkAvailability = async (req, res) => {
   try {
-    const { roomId, date, start, end } = req.query;
-    const overlap = await validateBookingOverlap(roomId, date, start, end);
+    const { date, start, end } = req.query;
+    if (!date || !start || !end) {
+      return res.status(400).json({ message: "ข้อมูลไม่ครบ" });
+    }
+
+    const room = DEFAULT_ROOM_ID;
+    const overlap = await validateBookingOverlap(room, date, start, end);
     res.json({
       available: !overlap,
-      message: overlap ? "ห้องนี้ถูกจองแล้ว" : "ห้องนี้ว่างในช่วงเวลาดังกล่าว",
+      message: overlap ? "ถูกจองแล้ว" : "ว่าง",
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
+
+
 exports.updateBookingStatus = async (req, res) => {
   const { status } = req.body;
-  const booking = await Booking.findByIdAndUpdate(req.params.id, { status }, { new: true });
+  const booking = await Booking.findByIdAndUpdate(
+    req.params.id,
+    { status },
+    { new: true }
+  ).populate("user room");
+
   res.json(booking);
 };
+

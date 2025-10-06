@@ -1,32 +1,25 @@
-// 📌 frontend/js/api.js
-const API_URL = "http://localhost:5000/api";
+async function apiRequest(endpoint, method = "GET", body = null) {
+  const token = localStorage.getItem("token");
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: token ? `Bearer ${token}` : "",
+  };
 
-// ✅ ดึง token จาก localStorage
-function getToken() {
-  return localStorage.getItem("token");
-}
-
-// ✅ ฟังก์ชันหลักสำหรับเรียก API
-async function apiRequest(endpoint, method = "GET", data = null) {
-  const headers = { "Content-Type": "application/json" };
-
-  // ถ้ามี token จะส่งใน header ด้วย
-  const token = getToken();
-  if (token) headers["Authorization"] = `Bearer ${token}`;
-
-  const res = await fetch(`${API_URL}${endpoint}`, {
+  const res = await fetch(`/api${endpoint}`, {
     method,
     headers,
-    body: data ? JSON.stringify(data) : null,
+    body: body ? JSON.stringify(body) : null,
   });
 
-  // ถ้า token หมดอายุ หรือไม่ได้ login
-  if (res.status === 401) {
-    alert("Session หมดอายุ กรุณาเข้าสู่ระบบใหม่");
-    localStorage.removeItem("token");
-    window.location = "login.html";
-    return;
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.message || `Error ${res.status}`);
   }
 
   return res.json();
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  window.location = "login.html";
 }
