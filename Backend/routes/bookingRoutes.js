@@ -1,36 +1,54 @@
-import express from "express";
-import Booking from "../models/Booking.js";
-
+const express = require("express");
 const router = express.Router();
+const { protect } = require("../middleware/authMiddleware");
+const { adminOnly } = require("../middleware/roleMiddleware");
+const {
+  createBooking,
+  getAllBookings,
+  getUserBookings,
+  checkAvailability,
+} = require("../controllers/bookingController");
 
-// ✅ ดึงรายการจองทั้งหมด
-router.get("/", async (req, res) => {
-  const bookings = await Booking.find();
-  res.json(bookings);
-});
+router.post("/", protect, createBooking);
+router.get("/my", protect, getUserBookings);
+router.get("/all", protect, adminOnly, getAllBookings);
 
-// ✅ ดึงรายการจองของวันใดวันหนึ่ง
-router.get("/check", async (req, res) => {
-  const { date } = req.query;
-  const bookings = await Booking.find({ date });
-  res.json(bookings);
-});
-
-// ✅ เพิ่มการจอง
-router.post("/", async (req, res) => {
-  try {
-    const booking = new Booking(req.body);
-    await booking.save();
-    res.json({ message: "✅ จองสำเร็จ", booking });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// ✅ ยกเลิกการจอง
-router.delete("/:id", async (req, res) => {
-  await Booking.findByIdAndDelete(req.params.id);
-  res.json({ message: "❌ ยกเลิกการจองเรียบร้อย" });
-});
-
-export default router;
+// ✅ เพิ่ม endpoint นี้
+/**
+ * @swagger
+ * /api/bookings/availability:
+ *   get:
+ *     summary: ตรวจสอบว่าห้องว่างหรือไม่ในช่วงเวลาที่ระบุ
+ *     tags: [Booking]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: roomId
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: รหัสห้อง
+ *       - name: date
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "2025-10-07"
+ *       - name: start
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "10:00"
+ *       - name: end
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "12:00"
+ *     responses:
+ *       200:
+ *         description: แสดงผลว่าว่างหรือไม่
+ */
+router.get("/availability", protect, checkAvailability);

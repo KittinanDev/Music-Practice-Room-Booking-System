@@ -1,0 +1,15 @@
+const Room = require("../models/Room");
+
+exports.getRooms = async (req, res) => {
+  const rooms = await Room.find();
+  res.json(rooms);
+};
+
+exports.createRoom = async (req, res) => {
+  const { name, capacity, equipment } = req.body;
+  const exists = await Room.findOne({ name });
+  if (exists) return res.status(400).json({ message: "ชื่อห้องนี้มีอยู่แล้ว" });
+
+  const room = await Room.create({ name, capacity, equipment });
+  res.json(room);
+};
