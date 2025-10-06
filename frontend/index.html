@@ -1,46 +1,42 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>🎵 ระบบจองห้องซ้อมดนตรี</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <title>Music Practice Room Booking</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/api.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/booking.js"></script>
 </head>
 <body>
-  <header>
-    <h1>🎵 Music Practice Room Booking</h1>
-  <nav>
-    <span id="user-info" style="margin-right: 15px;"></span> <!-- ✅ แสดงชื่อ -->
-    <button onclick="window.location='mybookings.html'">การจองของฉัน</button>
-    <button onclick="logout()">ออกจากระบบ</button>
-  </nav>
-  </header>
+  <!-- ✅ Navbar -->
+<div class="navbar">
+  <div class="logo">🎵 Music Room</div>
 
-  <section id="rooms-section">
-    <h2>เลือกห้องซ้อม</h2>
-    <div id="room-list"></div>
-  </section>
+  <div class="menu-toggle">
+    <span></span><span></span><span></span>
+  </div>
 
-  <section id="availability-section">
-    <h2>ตรวจสอบเวลาว่าง</h2>
+  <ul>
+    <li><a href="index.html">หน้าแรก</a></li>
+    <li><a href="mybookings.html">การจองของฉัน</a></li>
+    <li><a href="admin.html" id="admin-link">Admin</a></li>
+    <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
+    <li id="user-name"></li>
+    <li><button id="theme-toggle" class="theme-toggle">🌙</button></li>
+  </ul>
+</div>
+
+
+  <div class="container">
+    <h2>🎵 ระบบจองห้องซ้อมดนตรี</h2>
     <form id="availability-form">
-      <input type="date" id="date" required>
-      <input type="time" id="start" required>
-      <input type="time" id="end" required>
-      <select id="room-select"></select>
-      <button type="submit">ตรวจสอบ</button>
+      <input type="date" id="date" required />
+      <input type="time" id="start" required />
+      <input type="time" id="end" required />
+      <button type="submit">ตรวจสอบเวลาว่าง</button>
     </form>
     <p id="availability-result"></p>
-  </section>
-
-  <script src="js/api.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/booking.js"></script>
-  <script>
-    showUserBanner();   // ✅ แสดงชื่อผู้ใช้เมื่อโหลดหน้า
-    loadRooms();
-    setupAvailabilityChecker();
-  </script>
-
+  </div>
 </body>
 </html>

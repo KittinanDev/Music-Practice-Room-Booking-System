@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <h1>👀 Admin Dashboard</h1>
-    <button onclick="window.location='index.html'">หน้าแรก</button>
-    <button onclick="logout()">ออกจากระบบ</button>
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/api.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/booking.js"></script>
+</head>
+<body onload="loadAllBookings()">
+  <!-- ✅ Navbar -->
+<div class="navbar">
+  <div class="logo">🎵 Music Room</div>
 
-    <h2>📅 รายการจองทั้งหมด</h2>
-    <div id="all-bookings" class="booking-list"></div>
+  <div class="menu-toggle">
+    <span></span><span></span><span></span>
+  </div>
 
-    <script src="js/api.js"></script>
-    <script src="js/admin.js"></script>
-  </body>
+  <ul>
+    <li><a href="index.html">หน้าแรก</a></li>
+    <li><a href="mybookings.html">การจองของฉัน</a></li>
+    <li><a href="admin.html" id="admin-link">Admin</a></li>
+    <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
+    <li id="user-name"></li>
+    <li><button id="theme-toggle" class="theme-toggle">🌙</button></li>
+  </ul>
+</div>
+
+  <div class="navbar">
+    <div class="logo">🎵 Music Room</div>
+    <div class="menu-toggle"><span></span><span></span><span></span></div>
+    <ul>
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="mybookings.html">การจองของฉัน</a></li>
+      <li><a href="admin.html" id="admin-link">Admin</a></li>
+      <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
+      <li id="user-name"></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <h2>🛠 รายการจองทั้งหมด</h2>
+    <div id="all-bookings"></div>
+  </div>
+</body>
 </html>

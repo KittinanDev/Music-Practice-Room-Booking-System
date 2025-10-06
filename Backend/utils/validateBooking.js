@@ -1,12 +1,12 @@
 const Booking = require("../models/Booking");
 
-exports.validateBookingOverlap = async (roomId, date, start, end) => {
-  const overlap = await Booking.find({
-    room: roomId,
+exports.validateBookingOverlap = async (room, date, startTime, endTime) => {
+  const overlap = await Booking.findOne({
+    room,
     date,
     $or: [
-      { startTime: { $lt: end }, endTime: { $gt: start } }
+      { startTime: { $lt: endTime }, endTime: { $gt: startTime } },
     ],
   });
-  return overlap.length > 0;
+  return !!overlap;
 };
