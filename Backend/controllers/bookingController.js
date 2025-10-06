@@ -9,7 +9,7 @@ exports.createBooking = async (req, res) => {
     const { date, startTime, endTime } = req.body;
 
     const overlap = await validateBookingOverlap(DEFAULT_ROOM_ID, date, startTime, endTime);
-    if (overlap)
+    if (overlap === true)
       return res.status(400).json({ message: "ช่วงเวลานี้ถูกจองแล้ว" });
 
     const booking = await Booking.create({
@@ -28,13 +28,16 @@ exports.createBooking = async (req, res) => {
 
 // ✅ การจองของฉัน
 exports.getUserBookings = async (req, res) => {
-  const bookings = await Booking.find({ user: req.user._id });
+  const bookings = await Booking.find({ user: req.user._id })
+    .sort({ date: -1, startTime: 1 });
   res.json(bookings);
 };
 
 // ✅ การจองทั้งหมด (admin)
 exports.getAllBookings = async (req, res) => {
-  const bookings = await Booking.find().populate("user");
+  const bookings = await Booking.find()
+    .populate("user", "name email")
+    .sort({ date: -1, startTime: 1 });
   res.json(bookings);
 };
 
@@ -46,6 +49,16 @@ exports.checkAvailability = async (req, res) => {
     available: !overlap,
     message: overlap ? "ถูกจองแล้ว" : "ว่าง",
   });
+};
+
+// ✅ นับจำนวนการจองทั้งหมด
+exports.getBookingCount = async (req, res) => {
+  try {
+    const count = await Booking.countDocuments();
+    res.json({ total: count });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 // ✅ อัปเดตสถานะการจอง (admin)

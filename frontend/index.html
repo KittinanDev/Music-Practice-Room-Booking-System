@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>จองห้องซ้อมดนตรี</title>
-  <link rel="stylesheet" href="css/style.css">
   <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/booking.js"></script>
-  <script src="js/navbar.js"></script>
 </head>
 <body>
-  <div class="navbar">
-    <div class="logo">🎶 Music Booking</div>
-    <ul>
-      <li><a href="index.html">หน้าแรก</a></li>
-      <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
-      <li id="user-name"></li>
-      <li><button id="theme-toggle">🌙</button></li>
-    </ul>
-  </div>
+  <h2>🎵 จองห้องซ้อม</h2>
 
-  <div class="container">
-    <h3>📅 การจองของฉัน</h3>
-    <div id="booking-list">⏳ กำลังโหลด...</div>
-  </div>
+  <form id="booking-form">
+    <label>วันที่:</label>
+    <input type="date" id="date" required><br>
+    <label>เวลาเริ่ม:</label>
+    <input type="time" id="start" required><br>
+    <label>เวลาสิ้นสุด:</label>
+    <input type="time" id="end" required><br>
+    <button type="submit">จอง</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <hr>
+  <p><a href="mybookings.html">ดูการจองของฉัน</a></p>
+  <p><button onclick="logout()">ออกจากระบบ</button></p>
 </body>
 </html>

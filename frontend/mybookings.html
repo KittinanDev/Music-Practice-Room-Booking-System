@@ -1,37 +1,18 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>การจองของฉัน</title>
-  <link rel="stylesheet" href="css/style.css" />
   <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/booking.js"></script>
 </head>
-<body onload="loadMyBookings()">
- <!-- ✅ Navbar -->
-<div class="navbar">
-  <div class="logo">🎵 Music Room</div>
+<body>
+  <h2>📋 การจองของฉัน</h2>
+  <div id="my-bookings">⏳ กำลังโหลด...</div>
 
-  <div class="menu-toggle">
-    <span></span><span></span><span></span>
-  </div>
-
-  <ul>
-    <li><a href="index.html">หน้าแรก</a></li>
-    <li><a href="mybookings.html">การจองของฉัน</a></li>
-    <li><a href="admin.html" id="admin-link">Admin</a></li>
-    <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
-    <li id="user-name"></li>
-    <li><button id="theme-toggle" class="theme-toggle">🌙</button></li>
-  </ul>
-</div>
-
-  <div class="container">
-    <div class="topbar">
-      <h2>📋 การจองของฉัน</h2>
-      <button onclick="logout()">ออกจากระบบ</button>
-    </div>
-    <div id="my-bookings"></div>
-  </div>
+  <hr>
+  <p><a href="index.html">กลับไปหน้าจอง</a></p>
+  <p><button onclick="logout()">ออกจากระบบ</button></p>
 </body>
 </html>

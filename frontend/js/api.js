@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:5000/api";
 
-async function apiRequest(endpoint, method = "GET", data) {
+async function apiRequest(endpoint, method = "GET", body = null) {
   const token = localStorage.getItem("token");
   const headers = { "Content-Type": "application/json" };
   if (token) headers["Authorization"] = `Bearer ${token}`;
@@ -8,9 +8,13 @@ async function apiRequest(endpoint, method = "GET", data) {
   const res = await fetch(`${API_URL}${endpoint}`, {
     method,
     headers,
-    body: data ? JSON.stringify(data) : undefined,
+    body: body ? JSON.stringify(body) : null,
   });
 
-  if (!res.ok) throw new Error(await res.text());
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `HTTP ${res.status}`);
+  }
+
   return res.json();
 }
