@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/api.js"></script>
   <script src="js/navbar.js"></script>
-  <script src="js/booking.js"></script>
 </head>
-<body onload="loadAllBookings()">
-  <!-- ✅ Navbar -->
-<div class="navbar">
-  <div class="logo">🎵 Music Room</div>
-
-  <div class="menu-toggle">
-    <span></span><span></span><span></span>
-  </div>
-
-  <ul>
-    <li><a href="index.html">หน้าแรก</a></li>
-    <li><a href="mybookings.html">การจองของฉัน</a></li>
-    <li><a href="admin.html" id="admin-link">Admin</a></li>
-    <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
-    <li id="user-name"></li>
-    <li><button id="theme-toggle" class="theme-toggle">🌙</button></li>
-  </ul>
-</div>
-
+<body>
   <div class="navbar">
-    <div class="logo">🎵 Music Room</div>
-    <div class="menu-toggle"><span></span><span></span><span></span></div>
+    <div class="logo">🛠 Admin Panel</div>
     <ul>
-      <li><a href="index.html">หน้าแรก</a></li>
-      <li><a href="mybookings.html">การจองของฉัน</a></li>
-      <li><a href="admin.html" id="admin-link">Admin</a></li>
+      <li><a href="index.html">หน้า User</a></li>
       <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
       <li id="user-name"></li>
+      <li><button id="theme-toggle">🌙</button></li>
     </ul>
   </div>
 
   <div class="container">
-    <h2>🛠 รายการจองทั้งหมด</h2>
+    <h3>📋 รายการจองทั้งหมด</h3>
     <div id="all-bookings"></div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const data = await apiRequest("/bookings/all");
+        const container = document.getElementById("all-bookings");
+        data.forEach((b, i) => {
+          const div = document.createElement("div");
+          div.className = "booking-card";
+          div.style.animationDelay = `${i * 0.1}s`;
+          div.innerHTML = `
+            <p>👤 ${b.user?.name}</p>
+            <p>📅 ${b.date}</p>
+            <p>🕐 ${b.startTime} - ${b.endTime}</p>
+            <p>📌 ${b.status}</p>
+          `;
+          container.appendChild(div);
+        });
+      } catch {
+        document.getElementById("all-bookings").textContent = "⚠️ โหลดไม่สำเร็จ";
+      }
+    });
+  </script>
 </body>
 </html>

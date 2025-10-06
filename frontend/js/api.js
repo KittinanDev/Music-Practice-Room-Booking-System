@@ -1,20 +1,16 @@
-const API_URL = "http://127.0.0.1:5000/api";
+const API_URL = "http://localhost:5000/api";
 
-async function apiRequest(endpoint, method = "GET", body) {
+async function apiRequest(endpoint, method = "GET", data) {
   const token = localStorage.getItem("token");
+  const headers = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
 
-  const options = {
+  const res = await fetch(`${API_URL}${endpoint}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
-    },
-  };
-  if (body) options.body = JSON.stringify(body);
+    headers,
+    body: data ? JSON.stringify(data) : undefined,
+  });
 
-  const res = await fetch(`${API_URL}${endpoint}`, options);
-  const data = await res.json();
-
-  if (!res.ok) throw new Error(data.message || "Request failed");
-  return data;
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 }

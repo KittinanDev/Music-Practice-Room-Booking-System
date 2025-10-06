@@ -1,43 +1,25 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>สมัครสมาชิก</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
 </head>
 <body>
-  <!-- ✅ Navbar -->
-<div class="navbar">
-  <div class="logo">🎵 Music Room</div>
-
-  <div class="menu-toggle">
-    <span></span><span></span><span></span>
-  </div>
-
-  <ul>
-    <li><a href="index.html">หน้าแรก</a></li>
-    <li><a href="mybookings.html">การจองของฉัน</a></li>
-    <li><a href="admin.html" id="admin-link">Admin</a></li>
-    <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
-    <li id="user-name"></li>
-    <li><button id="theme-toggle" class="theme-toggle">🌙</button></li>
-  </ul>
-</div>
-
   <div class="container">
     <h2>📝 สมัครสมาชิก</h2>
     <form id="register-form">
-      <label>ชื่อ</label>
-      <input type="text" id="name" required />
-      <label>อีเมล</label>
-      <input type="email" id="email" required />
-      <label>รหัสผ่าน</label>
-      <input type="password" id="password" required />
+      <input type="text" name="name" placeholder="ชื่อผู้ใช้" required>
+      <input type="email" name="email" placeholder="อีเมล" required>
+      <input type="password" name="password" placeholder="รหัสผ่าน" required>
       <button type="submit">สมัครสมาชิก</button>
+      <div id="loader" class="loader"></div>
     </form>
-    <p>มีบัญชีอยู่แล้ว? <a href="login.html">เข้าสู่ระบบ</a></p>
+    <div class="form-footer">
+      <p>มีบัญชีอยู่แล้ว? <a href="login.html">เข้าสู่ระบบ</a></p>
+    </div>
   </div>
 </body>
 </html>

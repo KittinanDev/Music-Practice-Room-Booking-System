@@ -1,42 +1,27 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>Music Practice Room Booking</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <title>จองห้องซ้อมดนตรี</title>
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/api.js"></script>
-  <script src="js/navbar.js"></script>
   <script src="js/booking.js"></script>
+  <script src="js/navbar.js"></script>
 </head>
 <body>
-  <!-- ✅ Navbar -->
-<div class="navbar">
-  <div class="logo">🎵 Music Room</div>
-
-  <div class="menu-toggle">
-    <span></span><span></span><span></span>
+  <div class="navbar">
+    <div class="logo">🎶 Music Booking</div>
+    <ul>
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
+      <li id="user-name"></li>
+      <li><button id="theme-toggle">🌙</button></li>
+    </ul>
   </div>
 
-  <ul>
-    <li><a href="index.html">หน้าแรก</a></li>
-    <li><a href="mybookings.html">การจองของฉัน</a></li>
-    <li><a href="admin.html" id="admin-link">Admin</a></li>
-    <li><a href="#" onclick="logout()">ออกจากระบบ</a></li>
-    <li id="user-name"></li>
-    <li><button id="theme-toggle" class="theme-toggle">🌙</button></li>
-  </ul>
-</div>
-
-
   <div class="container">
-    <h2>🎵 ระบบจองห้องซ้อมดนตรี</h2>
-    <form id="availability-form">
-      <input type="date" id="date" required />
-      <input type="time" id="start" required />
-      <input type="time" id="end" required />
-      <button type="submit">ตรวจสอบเวลาว่าง</button>
-    </form>
-    <p id="availability-result"></p>
+    <h3>📅 การจองของฉัน</h3>
+    <div id="booking-list">⏳ กำลังโหลด...</div>
   </div>
 </body>
 </html>
