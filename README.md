@@ -1,5 +1,7 @@
 # 🎵 ระบบจองห้องซ้อมดนตรี (Music Practice Room Booking System)
 
+ระบบจองห้องซ้อมดนตรี (Music Practice Room Booking System) เป็นเว็บแอปพลิเคชันที่ช่วยให้ผู้ใช้สามารถจองห้องซ้อม ตรวจสอบสถานะห้อง และจัดการการจองได้ง่ายผ่านอินเทอร์เฟซที่ใช้งานง่าย
+
 ![GitHub stars](https://img.shields.io/github/stars/Kittinan-Dev/Music-practice-room-booking-system?style=for-the-badge)
 ![GitHub issues](https://img.shields.io/github/issues/Kittinan-Dev/Music-practice-room-booking-system?style=for-the-badge)
 ![GitHub license](https://img.shields.io/github/license/Kittinan-Dev/Music-practice-room-booking-system?style=for-the-badge)
@@ -18,12 +20,16 @@
 
 ---
 
-## 🚀 ฟีเจอร์หลัก (Features)
-- ✅ **ระบบล็อกอิน / สมัครสมาชิก** (นักศึกษาหรือลูกค้า / อาจารย์หรือเจ้าของร้าน / แอดมิน)  
-- ✅ **ตรวจสอบห้องว่างแบบเรียลไทม์** – ป้องกันการจองซ้ำ  
-- ✅ **จัดการการจอง** – จอง, ยกเลิก, แก้ไข  
-- ✅ **แดชบอร์ดผู้ดูแลระบบ (Admin Dashboard)** – จัดการผู้ใช้และตาราง  
-- ✅ **ประวัติการจองและสถิติการใช้งานห้องซ้อมดนตรี**
+## 📌 ฟีเจอร์หลัก (Features)
+
+- ระบบล็อกอิน / สมัครสมาชิก (ผู้ใช้, ผู้ดูแล, แอดมิน)  
+- ตรวจสอบห้องว่างแบบเรียลไทม์ — ป้องกันการจองซ้ำ  
+- จัดการการจอง: สร้าง / ยกเลิก / แก้ไข  
+- หน้า “รายการของฉัน” สำหรับผู้ใช้ดูการจองของตนเอง  
+- แดชบอร์ดแอดมิน: จัดการผู้ใช้และตารางการจอง  
+- ส่วนการยืนยัน (อนุมัติ / ปฏิเสธ / ยกเลิก) สำหรับแอดมิน  
+- รายงานสถิติพื้นฐาน เช่น จำนวนการจอง  
+
 
 ---
 
@@ -40,9 +46,9 @@
 
 | ส่วน | เทคโนโลยี |
 |------|-------------|
-| **Frontend (UI)** | HTML, CSS, JavaScript |
-| **Backend (API)** | Node.js (Express.js) |
-| **Database** | MongoDB (ผ่าน MongoDB Atlas) |
+| **Frontend (UI)** |  HTML, CSS (Tailwind), JavaScript |
+| **Backend (API)** | Node.js, Express |
+| **Database** | MongoDB (ใช้ MongoDB Atlas หรือ Local) |
 | **Authentication** | JWT (JSON Web Token) |
 | **Deployment** | Localhost / สามารถปรับใช้บน Render, Vercel, หรือ Railway |
 
@@ -50,23 +56,39 @@
 
 ## 📂 โครงสร้างโปรเจกต์ (Project Structure)
 ```bash
-Music-practice-room-booking-system/
+Music-Practice-Room-Booking-System/
 │
 ├── backend/
-│ ├── server.js # ไฟล์เริ่มต้นของเซิร์ฟเวอร์
 │ ├── config/
-│ │ └── db.js # การเชื่อมต่อ MongoDB
-│ ├── models/
-│ │ └── Booking.js # โครงสร้างข้อมูลการจอง
-│ ├── routes/
-│ │ └── bookingRoutes.js # เส้นทาง API (Bookings)
+│ │ └── db.js # เชื่อมต่อ MongoDB
+│ ├── controllers/ # ฟังก์ชัน logic สำหรับ API
+│ ├── models/ # สคีมาของฐานข้อมูล (เช่น Booking, User)
+│ ├── routes/ # เส้นทาง API (bookingRoutes, userRoutes, adminRoutes ฯลฯ)
+│ ├── middleware/ # มิดเดิ้ลแวร์ เช่น ตรวจสอบ JWT
+│ ├── server.js # จุดเริ่มต้นของแอป Express
 │ └── package.json
 │
 ├── frontend/
-│ ├── index.html # หน้าเว็บหลัก
-│ ├── style.css # การตกแต่ง UI
-│ └── script.js # Logic ของฝั่งผู้ใช้ (เชื่อมต่อ API)
+│ ├── components/
+│ │ ├── navbar.html
+│ │ └── navbar.js
+│ ├── js/
+│ │ ├── api.js
+│ │ ├── auth.js
+│ │ ├── booking.js
+│ │ ├── admin.js
+│ │ └── อื่น ๆ
+│ ├── css/ # ถ้ามีไฟล์ CSS แยก
+│ ├── index.html
+│ ├── login.html
+│ ├── register.html
+│ ├── profile.html
+│ ├── mybookings.html
+│ ├── admin.html
+│ └── อื่น ๆ หน้า UI
 │
+├── .gitignore
+├── LICENSE
 └── README.md
 ```
 ---
