@@ -15,6 +15,5 @@ async function apiRequest(endpoint, method = "GET", body = null) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.message || `HTTP ${res.status}`);
   }
-
   return res.json();
 }

@@ -4,8 +4,9 @@ const {
   getUserBookings,
   getAllBookings,
   checkAvailability,
+  cancelBooking,
   updateBookingStatus,
-  getBookingCount,
+  getStats,
 } = require("../controllers/bookingController");
 const { protect } = require("../middlewares/authMiddleware");
 const { adminOnly } = require("../middlewares/roleMiddleware");
@@ -16,7 +17,8 @@ router.post("/", protect, createBooking);
 router.get("/my", protect, getUserBookings);
 router.get("/all", protect, adminOnly, getAllBookings);
 router.get("/availability", protect, checkAvailability);
-router.get("/count", protect, adminOnly, getBookingCount);
+router.delete("/:id", protect, cancelBooking);
 router.patch("/:id", protect, adminOnly, updateBookingStatus);
+router.get("/stats", protect, adminOnly, getStats);
 
 module.exports = router;

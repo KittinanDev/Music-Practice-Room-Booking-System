@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>โปรไฟล์ของฉัน</title>
+  <script src="js/api.js"></script>
+  <script src="js/navbar.js"></script>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <main style="padding: 20px;">
+    <h2>👤 โปรไฟล์ของฉัน</h2>
+    <p><b>ชื่อ:</b> <span id="name"></span></p>
+    <p><b>อีเมล:</b> <span id="email"></span></p>
+    <p><b>บทบาท:</b> <span id="role"></span></p>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("name").textContent = localStorage.getItem("name") || "-";
+      document.getElementById("email").textContent = localStorage.getItem("email") || "-";
+      document.getElementById("role").textContent = localStorage.getItem("role") || "user";
+    });
+  </script>
+</body>
+</html>

@@ -2,76 +2,23 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/admin.js"></script>
 </head>
-<body class="bg-gradient-to-br from-slate-50 to-gray-100 min-h-screen">
-  <div class="container mx-auto px-4 py-8 max-w-6xl">
-    <!-- Header -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 mb-6">
-      <div class="flex items-center justify-between mb-6">
-        <div class="flex items-center">
-          <span class="text-5xl mr-3">🛠</span>
-          <h2 class="text-3xl font-bold text-gray-800">หน้าผู้ดูแลระบบ</h2>
-        </div>
-        <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-xl shadow-md">
-          <p class="text-sm font-medium">จำนวนการจองทั้งหมด</p>
-          <p class="text-3xl font-bold text-center" id="count">⏳</p>
-        </div>
-      </div>
-    </div>
+<body>
+  <div id="navbar-container"></div>
+  <h2>🛠 Admin Dashboard</h2>
 
-    <!-- Bookings Section -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 mb-6">
-      <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-        <span class="mr-2">📋</span>
-        รายการจองทั้งหมด
-      </h3>
-      <div id="all-bookings" class="text-gray-600">
-        <div class="flex items-center justify-center py-8">
-          <svg class="animate-spin h-8 w-8 text-purple-600 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          <span class="text-lg">กำลังโหลด...</span>
-        </div>
-      </div>
-    </div>
+  <p>สวัสดีคุณ <span id="admin-name"></span></p>
+  <p>จำนวนการจองทั้งหมด: <b id="count">⏳</b></p>
 
-    <!-- Navigation -->
-    <div class="bg-white rounded-2xl shadow-lg p-6">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a 
-          href="index.html"
-          class="flex-1 text-center bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-600 transition duration-200 flex items-center justify-center"
-        >
-          <span class="mr-2">←</span>
-          กลับหน้าผู้ใช้
-        </a>
-        <button 
-          onclick="logout()"
-          class="flex-1 bg-gray-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-600 transition duration-200 flex items-center justify-center"
-        >
-          <span class="mr-2">🚪</span>
-          ออกจากระบบ
-        </button>
-      </div>
-    </div>
-  </div>
+  <hr>
+  <h3>รายการทั้งหมด</h3>
+  <div id="booking-list">⏳ กำลังโหลด...</div>
 
-  <style>
-    /* Custom styles for booking cards that will be injected by admin.js */
-    .booking-card {
-      @apply bg-gray-50 border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition duration-200;
-    }
-    
-    .booking-card:hover {
-      @apply border-purple-300 bg-purple-50;
-    }
-  </style>
+  <hr>
+  <button onclick="logout()">ออกจากระบบ</button>
 </body>
 </html>

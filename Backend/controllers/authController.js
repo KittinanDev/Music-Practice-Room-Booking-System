@@ -1,41 +1,45 @@
 const User = require("../models/User");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// ✅ Register
-exports.registerUser = async (req, res) => {
+const genToken = (id) =>
+  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+// ✅ สมัครสมาชิก
+exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "กรอกข้อมูลให้ครบ" });
+    }
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser)
+    const exist = await User.findOne({ email });
+    if (exist) {
       return res.status(400).json({ message: "อีเมลนี้ถูกใช้แล้ว" });
+    }
 
-    const hashed = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashed });
-
-    res.json({ message: "สมัครสมาชิกสำเร็จ", user });
+    const user = await User.create({ name, email, password });
+    res.status(201).json({
+      message: "สมัครสมาชิกสำเร็จ",
+      user: { id: user._id, name: user.name, email: user.email, role: user.role },
+      token: genToken(user._id),
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error(err);
+    res.status(500).json({ message: "เกิดข้อผิดพลาดในระบบสมัครสมาชิก" });
   }
 };
 
-// ✅ Login
-exports.loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "ไม่พบบัญชี" });
-
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(400).json({ message: "รหัสผ่านไม่ถูกต้อง" });
-
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.json({ message: "เข้าสู่ระบบสำเร็จ", token, user });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+// ✅ เข้าสู่ระบบ
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user || !(await user.matchPassword(password))) {
+    return res.status(401).json({ message: "อีเมลหรือรหัสผ่านไม่ถูกต้อง" });
   }
+
+  res.json({
+    message: "เข้าสู่ระบบสำเร็จ",
+    user: { id: user._id, name: user.name, email: user.email, role: user.role },
+    token: genToken(user._id),
+  });
 };

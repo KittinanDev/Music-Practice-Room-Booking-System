@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
 
-  // ✅ Login
+  // Login
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("role", res.user.role);
         localStorage.setItem("name", res.user.name);
 
-        alert("เข้าสู่ระบบสำเร็จ!");
+        alert("เข้าสู่ระบบสำเร็จ");
         if (res.user.role === "admin") {
           window.location.href = "admin.html";
         } else {
