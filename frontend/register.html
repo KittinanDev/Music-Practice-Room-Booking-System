@@ -2,36 +2,136 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>สมัครสมาชิก</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/api.js"></script>
 </head>
-<body>
-  <h2>🔑 สมัครสมาชิก</h2>
+<body class="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <!-- Main Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 transform hover:scale-105 transition duration-300">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div class="inline-block bg-gradient-to-r from-purple-500 to-blue-500 rounded-full p-4 mb-4">
+          <span class="text-5xl">🔑</span>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">สมัครสมาชิก</h2>
+        <p class="text-gray-600">สร้างบัญชีใหม่เพื่อเริ่มต้นใช้งาน</p>
+      </div>
 
-  <form id="register-form">
-    <label>ชื่อ:</label>
-    <input type="text" name="name" required><br>
-    <label>อีเมล:</label>
-    <input type="email" name="email" required><br>
-    <label>รหัสผ่าน:</label>
-    <input type="password" name="password" required><br>
-    <button type="submit">สมัครสมาชิก</button>
-  </form>
+      <!-- Registration Form -->
+      <form id="register-form" class="space-y-6">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+            👤 ชื่อ
+          </label>
+          <input 
+            type="text" 
+            name="name" 
+            id="name"
+            placeholder="กรอกชื่อของคุณ"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 placeholder-gray-400"
+          >
+        </div>
 
-  <p id="msg"></p>
-  <p><a href="login.html">กลับไปหน้าเข้าสู่ระบบ</a></p>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            📧 อีเมล
+          </label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email"
+            placeholder="your@email.com"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 placeholder-gray-400"
+          >
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+            🔒 รหัสผ่าน
+          </label>
+          <input 
+            type="password" 
+            name="password" 
+            id="password"
+            placeholder="••••••••"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 placeholder-gray-400"
+          >
+        </div>
+
+        <button 
+          type="submit"
+          class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 transform hover:scale-105 transition duration-200 shadow-lg">
+          สมัครสมาชิก
+        </button>
+      </form>
+
+      <!-- Message Display -->
+      <div id="msg" class="mt-4 text-center font-medium text-sm"></div>
+
+      <!-- Footer -->
+      <div class="mt-6 text-center">
+        <p class="text-gray-600">
+          มีบัญชีอยู่แล้ว? 
+          <a href="login.html" class="text-purple-600 hover:text-purple-700 font-semibold hover:underline transition duration-200">
+            กลับไปหน้าเข้าสู่ระบบ
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="text-center mt-6">
+      <p class="text-gray-600 text-sm">
+        🎸 จองห้องซ้อมได้ง่ายๆ ในไม่กี่คลิก
+      </p>
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body > div {
+      animation: fadeInUp 0.6s ease-out;
+    }
+  </style>
 
   <script>
     document.getElementById("register-form").addEventListener("submit", async (e) => {
       e.preventDefault();
+      const msgEl = document.getElementById("msg");
       const name = e.target.name.value;
       const email = e.target.email.value;
       const password = e.target.password.value;
+      
+      // Show loading state
+      msgEl.textContent = "⏳ กำลังสมัครสมาชิก...";
+      msgEl.className = "mt-4 text-center font-medium text-sm text-purple-600";
+      
       try {
         const res = await apiRequest("/auth/register", "POST", { name, email, password });
-        document.getElementById("msg").textContent = "✅ " + res.message;
+        msgEl.textContent = "✅ " + res.message;
+        msgEl.className = "mt-4 text-center font-medium text-sm text-green-600";
+        
+        // Clear form on success
+        e.target.reset();
       } catch (err) {
-        document.getElementById("msg").textContent = "❌ " + err.message;
+        msgEl.textContent = "❌ " + err.message;
+        msgEl.className = "mt-4 text-center font-medium text-sm text-red-600";
       }
     });
   </script>

@@ -97,9 +97,46 @@
       }
     }
 
-    .container > div {
+    body > div {
       animation: fadeInUp 0.6s ease-out;
     }
   </style>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btnText = document.getElementById("btn-text");
+      const loader = document.getElementById("loader");
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+
+      // Show loading state
+      btnText.textContent = "กำลังเข้าสู่ระบบ...";
+      loader.classList.remove("hidden");
+
+      try {
+        const res = await apiRequest("/auth/login", "POST", { email, password });
+        
+        // Store token and user info
+        if (res.token) {
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("user", JSON.stringify(res.user));
+          
+          // Redirect based on role
+          if (res.user.role === "admin") {
+            window.location.href = "admin.html";
+          } else {
+            window.location.href = "index.html";
+          }
+        }
+      } catch (err) {
+        // Reset button state
+        btnText.textContent = "เข้าสู่ระบบ";
+        loader.classList.add("hidden");
+        
+        alert("❌ " + (err.message || "เข้าสู่ระบบไม่สำเร็จ"));
+      }
+    });
+  </script>
 </body>
 </html>

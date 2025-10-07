@@ -2,30 +2,121 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>จองห้องซ้อมดนตรี</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/booking.js"></script>
 </head>
-<body>
-   <div id="navbar-container"></div>
-  <h2>🎸 จองห้องซ้อมดนตรี</h2>
-  <p>สวัสดีคุณ <span id="username"></span></p>
+<body class="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 min-h-screen">
+  <script src="components/navbar.js"></script>
+  
+  <div class="container mx-auto px-4 py-8 max-w-2xl">
+    <!-- Header Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-6 transform hover:scale-105 transition duration-300">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full p-3">
+          <span class="text-4xl">🎸</span>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold text-gray-800">จองห้องซ้อมดนตรี</h2>
+          <p class="text-gray-600 mt-1">
+            สวัสดีคุณ <span id="username" class="font-semibold text-purple-600"></span>
+          </p>
+        </div>
+      </div>
+    </div>
 
-  <form id="booking-form">
-    <label>วันที่:</label>
-    <input type="date" id="date" required><br>
-    <label>เวลาเริ่ม:</label>
-    <input type="time" id="start" required><br>
-    <label>เวลาสิ้นสุด:</label>
-    <input type="time" id="end" required><br>
-    <button type="submit">จอง</button>
-  </form>
+    <!-- Booking Form Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-6">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <span>📅</span>
+        <span>กรอกข้อมูลการจอง</span>
+      </h3>
+      
+      <form id="booking-form" class="space-y-6">
+        <div>
+          <label for="date" class="block text-sm font-medium text-gray-700 mb-2">
+            📆 วันที่
+          </label>
+          <input 
+            type="date" 
+            id="date" 
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+          >
+        </div>
 
-  <p id="msg"></p>
-  <hr>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="start" class="block text-sm font-medium text-gray-700 mb-2">
+              🕐 เวลาเริ่ม
+            </label>
+            <input 
+              type="time" 
+              id="start" 
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+            >
+          </div>
 
-  <p><a href="mybookings.html">ดูการจองของฉัน</a></p>
-  <p><button onclick="logout()">ออกจากระบบ</button></p>
+          <div>
+            <label for="end" class="block text-sm font-medium text-gray-700 mb-2">
+              🕑 เวลาสิ้นสุด
+            </label>
+            <input 
+              type="time" 
+              id="end" 
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+            >
+          </div>
+        </div>
+
+        <button 
+          type="submit"
+          class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 transform hover:scale-105 transition duration-200 shadow-lg">
+          จองห้องเลย
+        </button>
+      </form>
+
+      <div id="msg" class="mt-4 text-center font-medium"></div>
+    </div>
+
+    <!-- Action Buttons Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a 
+          href="mybookings.html"
+          class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-lg text-center flex items-center justify-center gap-2 transform hover:scale-105">
+          <span>📋</span>
+          <span>ดูการจองของฉัน</span>
+        </a>
+        <button 
+          onclick="logout()"
+          class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-lg transform hover:scale-105">
+          ออกจากระบบ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container > div {
+      animation: fadeInUp 0.6s ease-out;
+    }
+  </style>
 </body>
 </html>

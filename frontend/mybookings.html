@@ -2,18 +2,105 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>การจองของฉัน</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/booking.js"></script>
 </head>
-<body>
- <div id="navbar-container"></div>
-  <h2>📅 การจองของฉัน</h2>
-  <div id="my-bookings">⏳ กำลังโหลด...</div>
+<body class="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 min-h-screen">
+  <script src="components/navbar.js"></script>
+  
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-6 transform hover:scale-105 transition duration-300">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="bg-gradient-to-r from-green-500 to-emerald-500 rounded-full p-3">
+          <span class="text-4xl">📅</span>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold text-gray-800">การจองของฉัน</h2>
+          <p class="text-gray-600 mt-1">รายการการจองห้องซ้อมดนตรีทั้งหมด</p>
+        </div>
+      </div>
+    </div>
 
-  <hr>
-  <p><a href="index.html">กลับไปจอง</a></p>
-  <p><button onclick="logout()">ออกจากระบบ</button></p>
+    <!-- Bookings List Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-6">
+      <div id="my-bookings" class="space-y-4">
+        <div class="flex items-center justify-center py-8">
+          <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+            <p class="text-gray-600 font-medium">⏳ กำลังโหลด...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a 
+          href="index.html"
+          class="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-lg text-center flex items-center justify-center gap-2 transform hover:scale-105">
+          <span>🎸</span>
+          <span>กลับไปจอง</span>
+        </a>
+        <button 
+          onclick="logout()"
+          class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-lg transform hover:scale-105">
+          ออกจากระบบ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container > div {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Custom styles for booking cards that will be dynamically added */
+    .booking-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      color: white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .booking-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .booking-card .booking-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .booking-card .booking-time {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .booking-card .booking-date {
+      opacity: 0.9;
+    }
+  </style>
 </body>
 </html>

@@ -2,23 +2,78 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/admin.js"></script>
 </head>
-<body>
-  <div id="navbar-container"></div>
-  <h2>🛠 Admin Dashboard</h2>
+<body class="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 min-h-screen">
+  <script src="components/navbar.js"></script>
+  
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Header Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-6 transform hover:scale-105 transition duration-300">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="bg-gradient-to-r from-purple-500 to-blue-500 rounded-full p-3">
+          <span class="text-5xl">🛠</span>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold text-gray-800">Admin Dashboard</h2>
+          <p class="text-gray-600 mt-1">ระบบจัดการการจองห้องซ้อมดนตรี</p>
+        </div>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6 pt-6 border-t border-gray-200">
+        <div class="space-y-2">
+          <p class="text-gray-600">
+            สวัสดีคุณ <span id="admin-name" class="font-semibold text-purple-600"></span>
+          </p>
+          <div class="flex items-center gap-3">
+            <span class="text-gray-600">จำนวนการจองทั้งหมด:</span>
+            <span id="count" class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">⏳</span>
+          </div>
+        </div>
+        
+        <button 
+          onclick="logout()" 
+          class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-semibold px-6 py-3 rounded-lg transition duration-200 shadow-lg transform hover:scale-105">
+          ออกจากระบบ
+        </button>
+      </div>
+    </div>
 
-  <p>สวัสดีคุณ <span id="admin-name"></span></p>
-  <p>จำนวนการจองทั้งหมด: <b id="count">⏳</b></p>
+    <!-- Booking List Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b border-gray-200 flex items-center gap-2">
+        <span>📋</span>
+        <span>รายการทั้งหมด</span>
+      </h3>
+      
+      <div id="booking-list" class="text-gray-600">
+        <div class="flex items-center justify-center py-8">
+          <span class="text-lg">⏳ กำลังโหลด...</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <hr>
-  <h3>รายการทั้งหมด</h3>
-  <div id="booking-list">⏳ กำลังโหลด...</div>
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  <hr>
-  <button onclick="logout()">ออกจากระบบ</button>
+    .container > div {
+      animation: fadeInUp 0.6s ease-out;
+    }
+  </style>
 </body>
 </html>

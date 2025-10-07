@@ -1,27 +1,45 @@
-<nav id="navbar" style="
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #222;
-  color: #fff;
-  padding: 12px 20px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-  font-family: sans-serif;
-">
-  <div class="left">
-    <span style="font-weight: bold;">🎸 Music Room</span>
-  </div>
+<nav id="navbar" class="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 text-white px-6 py-4 shadow-2xl sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <div class="left">
+      <!-- คลิกแล้วกลับไปหน้า index.html -->
+      <span id="logo" class="text-xl font-bold cursor-pointer hover:text-purple-300 transition-all duration-300 flex items-center gap-2 transform hover:scale-105">
+        <span class="text-3xl">🎸</span>
+        <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Music Room</span>
+      </span>
+    </div>
 
-  <div class="right" style="display: flex; gap: 15px; align-items: center;">
-    <span id="user-display" style="font-size: 0.9rem;"></span>
-    <a href="profile.html" style="color: #fff; text-decoration: none;">โปรไฟล์</a>
-    <button id="logout-btn" style="
-      background-color: #ff4d4d;
-      border: none;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    ">ออกจากระบบ</button>
+    <div class="right flex gap-6 items-center">
+      <span id="user-display" class="text-sm text-gray-300 hidden sm:inline"></span>
+      <a href="profile.html" class="text-white hover:text-purple-300 transition-all duration-300 font-medium transform hover:scale-110 flex items-center gap-1">
+        <span>👤</span>
+        <span>โปรไฟล์</span>
+      </a>
+      <button id="logout-btn" class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 shadow-lg transform hover:scale-105">
+        ออกจากระบบ
+      </button>
+    </div>
   </div>
 </nav>
+
+<script>
+  // ✅ เมื่อคลิกที่โลโก้ → กลับหน้า index.html
+  document.getElementById("logo").addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+
+  // ✅ เมื่อคลิกปุ่มออกจากระบบ
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    // แสดงกล่องยืนยัน
+    const confirmLogout = confirm("คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?");
+    
+    if (confirmLogout) {
+      // ถ้ามีระบบล็อกอินเก็บ token หรือ user เอาออกก่อน
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      // กลับไปหน้า login.html
+      window.location.href = "login.html";
+    }
+    // ถ้ากด "ยกเลิก" จะไม่ทำอะไร
+  });
+</script>
